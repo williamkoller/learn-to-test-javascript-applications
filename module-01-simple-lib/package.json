@@ -16,7 +16,10 @@
   "author": "William Koller",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
     "@types/jest": "^26.0.8",
+    "babel-jest": "^29.5.0",
     "jest": "^26.2.2"
   }
 }
