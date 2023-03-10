@@ -75,27 +75,33 @@ describe('Cart', () => {
         quantity: 2,
       });
 
-      expect(cart.checkout()).toMatchInlineSnapshot(`
-      {
-        "items": [
-          {
-            "product": {
-              "price": 35388,
-              "title": "Adidas running shoed - men",
-            },
-            "quantity": 2,
-          },
-          {
-            "product": {
-              "price": 41872,
-              "title": "Adidas running shoed - women",
-            },
-            "quantity": 2,
-          },
-        ],
-        "total": 154520,
-      }
-`);
+      expect(cart.checkout()).toMatchSnapshot();
+    });
+
+    it('should return and object with total and the list of items when summary() is called', () => {
+      cart.add({
+        product,
+        quantity: 2,
+      });
+
+      cart.add({
+        product: product2,
+        quantity: 2,
+      });
+
+      expect(cart.summary()).toMatchSnapshot();
+      expect(cart.getTotal()).toBeGreaterThan(0);
+    });
+
+    it('should reset the cart when checkout() is called', () => {
+      cart.add({
+        product: product2,
+        quantity: 3,
+      });
+
+      cart.checkout();
+
+      expect(cart.getTotal()).toEqual(0);
     });
   });
 });
