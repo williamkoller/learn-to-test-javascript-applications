@@ -7,6 +7,11 @@ describe('Cart', () => {
     price: 35388, // 353.88 | R$ 383.88
   };
 
+  let product2 = {
+    title: 'Adidas running shoed - women',
+    price: 41872, // 418.72 | R$ 418.72
+  };
+
   beforeEach(() => {
     cart = new Cart();
   });
@@ -37,5 +42,21 @@ describe('Cart', () => {
     });
 
     expect(cart.getTotal()).toEqual(35388);
+  });
+
+  it('should update total when a product gets included and then removed', () => {
+    cart.add({
+      product,
+      quantity: 2,
+    });
+
+    cart.add({
+      product: product2,
+      quantity: 1,
+    });
+
+    cart.remove(product);
+
+    expect(cart.getTotal()).toEqual(41872);
   });
 });
