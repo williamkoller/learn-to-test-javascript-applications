@@ -41,9 +41,11 @@ export default class Cart {
   getTotal() {
     return this.items.reduce((acc, item) => {
       const amount = Money({ amount: item.quantity * item.product.price });
-      let discount = calculatePercentageDiscount(amount, item);
+      let discount = Money({ amount: 0 });
 
-      if (item.condition?.quantity) {
+      if (item.condition?.percentage) {
+        discount = calculatePercentageDiscount(amount, item);
+      } else if (item.condition?.quantity) {
         discount = calculateQuantityDiscount(amount, item);
       }
 
